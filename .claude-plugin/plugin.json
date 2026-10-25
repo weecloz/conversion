@@ -1,0 +1,11 @@
+{
+  "name": "conversion",
+  "displayName": "Conversion",
+  "version": "1.0.0",
+  "description": "Le système de conversion d'un commercial B2B : un seul skill qui traite chaque call, tient ton pipeline et améliore tes réponses aux objections.",
+  "author": { "name": "Weecloz", "url": "https://www.weecloz.io" },
+  "homepage": "https://github.com/weecloz/conversion",
+  "repository": "https://github.com/weecloz/conversion",
+  "license": "MIT",
+  "keywords": ["vente", "sales", "closing", "pipeline", "objections"]
+}

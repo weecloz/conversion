@@ -1,0 +1,8 @@
+{
+  "name": "weecloz-conversion",
+  "description": "Le système de conversion B2B de Weecloz pour Claude Code",
+  "owner": { "name": "Weecloz", "url": "https://www.weecloz.io" },
+  "plugins": [
+    { "name": "conversion", "source": ".", "description": "Un skill : traite chaque call, tient ton pipeline, améliore tes réponses aux objections." }
+  ]
+}

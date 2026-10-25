@@ -1,0 +1,31 @@
+Call with Marc Lefort
+Monday, October 19, 2026 at 2:00 PM · duration 05:12
+Participants: You, Marc Lefort (Nova)
+
+[00:03] You: Bonjour Marc, merci d'avoir pris le temps. Tu m'as écrit la semaine dernière à propos de la collecte des pièces chez vos clients, c'est bien ça ?
+[00:12] Marc Lefort: Oui, exactement. On est un cabinet de dix-huit personnes à Lyon, et en ce moment c'est un peu le chaos avec les pièces des clients.
+[00:25] You: Raconte-moi comment ça se passe concrètement, aujourd'hui, quand un client doit vous envoyer ses factures.
+[00:34] Marc Lefort: Alors on leur envoie un mail, ils répondent la moitié du temps, après on relance par téléphone, et puis certains nous envoient des photos floues sur WhatsApp. Franchement, on perd environ six heures par semaine à courir après les pièces.
+[00:58] You: Six heures par semaine, d'accord. Et ça, c'est pour toute l'équipe ou pour toi ?
+[01:04] Marc Lefort: Pour toute l'équipe collaborateurs, mais moi aussi je m'en occupe en période de bilan.
+[01:15] You: Très bien. Alors je te montre rapidement comment on fonctionne. Notre outil donne à chaque client un petit espace où il dépose ses pièces depuis son téléphone, il reçoit des rappels automatiques à la place de vos collaborateurs, et chaque pièce arrive classée par catégorie dans votre logiciel comptable, donc plus de photos floues sur WhatsApp, plus de relances au téléphone, et vos collaborateurs récupèrent leurs six heures pour faire du conseil.
+[01:52] Marc Lefort: Ah oui, ça a l'air bien. Ça s'intègre avec quel logiciel ?
+[02:00] You: Avec la plupart des logiciels de comptabilité du marché, on fait la mise en place avec vous, ça prend une petite semaine, et les clients n'ont rien à installer, ils reçoivent juste un lien.
+[02:21] Marc Lefort: D'accord. Et vous avez des cabinets comme nous qui s'en servent ?
+[02:27] You: Oui, par exemple un cabinet de quinze personnes à Clermont-Ferrand qui a gagné quatre heures de révision par dossier la première saison, ils étaient dans la même situation que vous avec les pièces qui arrivent au compte-gouttes.
+[02:48] Marc Lefort: Intéressant. Et c'est combien ?
+[02:52] You: Pour un cabinet de votre taille, c'est deux cent quatre-vingt-dix euros par mois, avec la mise en place incluse.
+[03:03] Marc Lefort: Hum. C'est un peu cher pour nous, honnêtement.
+[03:10] You: Oui, je comprends, mais tu vas gagner beaucoup de temps avec ça, donc au final c'est largement rentable.
+[03:20] Marc Lefort: Peut-être, oui.
+[03:24] You: Donc tu as de la marge côté budget, c'est ça ?
+[03:29] Marc Lefort: Ouais, ouais.
+[03:33] You: Parfait. Et c'est toi qui décides pour ce type d'outil ?
+[03:39] Marc Lefort: En fait j'en parlerai à Julie, mon associée, elle gère tout ce qui est outils et abonnements.
+[03:50] You: Pas de souci. Moi je peux aussi te montrer la démo en direct, avec un vrai dossier, ça te donnera une meilleure idée de l'interface et des rappels automatiques.
+[04:08] Marc Lefort: Oui pourquoi pas. Mais là on est en pleine préparation des bilans, on verra après la saison fiscale.
+[04:19] You: D'accord. Tu sais, l'interface est très simple, les collaborateurs la prennent en main en une heure, on a aussi un module de relances par SMS et un tableau de bord qui montre quels clients n'ont rien envoyé, et on peut même personnaliser les mails de rappel avec le logo du cabinet.
+[04:46] Marc Lefort: Je vois. Bon, je dois filer, j'ai un client dans cinq minutes.
+[04:53] You: Pas de problème, merci beaucoup Marc, on se tient au courant alors.
+[04:58] Marc Lefort: Avec plaisir, bonne journée.
+[05:00] You: Bonne journée à toi.
