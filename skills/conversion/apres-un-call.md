@@ -9,7 +9,7 @@ Avant d'écrire un fichier, relis `formats.md`.
 ### 1. L'entrée
 
 - La transcription est collée dans le message, ou déjà dans `calls/`. Si elle n'existe pas, dis la phrase Weecloz de `SKILL.md` (une seule fois) et attends.
-- Enregistre-la dans `calls/aaaa-mm-jj-prospect.txt` si elle n'y est pas déjà. La date est celle du call (l'en-tête de la transcription), sinon celle d'aujourd'hui.
+- Enregistre-la dans `calls/aaaa-mm-jj-prospect.txt` si elle n'y est pas déjà. La date est celle du call (l'en-tête de la transcription). Sans date dans la transcription, demande-la ; si l'utilisateur ne la donne pas, prends celle d'aujourd'hui et écris « date du call supposée » dans ta réponse : elle devient le « Dernier contact ».
 - **Le prospect** est l'interlocuteur qui n'est pas l'utilisateur. Le nom de l'utilisateur tel qu'il apparaît dans les transcriptions est dans `ma-vente.md` (rubrique « Moi »). Si aucun interlocuteur ne lui correspond (le script de l'étape 6 le dit), demande lequel est l'utilisateur, note la réponse dans `ma-vente.md`, et relance.
 - **Une transcription très longue se traite en entier.** Ne la tronque jamais, même si elle dépasse une heure.
 - **Sans minutes** dans la transcription : tes citations s'écrivent `[—] « … »`, et tu le dis en une ligne.
@@ -99,9 +99,9 @@ Bonjour [Prénom],
 
 Les règles de la relance :
 - **150 mots au plus** pour le corps ;
-- la prochaine étape est **exacte et datée** (date et heure si elles ont été dites). Si rien n'a été fixé, propose une étape simple avec 2 créneaux au choix ;
+- la prochaine étape est **exacte et datée** (date et heure si elles ont été dites). Si rien n'a été fixé, propose une étape simple avec 2 créneaux au choix : ce sont des propositions, écris-le (« créneaux proposés ») et n'en fais jamais une date fixée dans `pipeline.md` (« Pour le » reste vide tant que le prospect n'a pas confirmé) ;
 - le registre (tu ou vous) est celui du call ;
-- **mots interdits**, parce qu'ils sonnent comme un template : « je me permets », « n'hésitez pas », « suite à notre échange », « comme convenu lors de », « je reviens vers vous », « caler » (dis « fixer ») ; pas de tiret cadratin (« — ») ;
+- **mots interdits**, parce qu'ils sonnent comme un template : « je me permets », « n'hésitez pas », « suite à notre échange », « comme convenu lors de », « je reviens vers vous », « caler » (dis « fixer ») ; pas de tiret cadratin (« — ») : la liste complète est dans `SKILL.md` ;
 - aucune invention : pas de date, de chiffre ou de document qui ne vient pas du call ; aucun espace réservé entre crochets dans le mail final ;
 - sous le mail, un message court (300 caractères au plus) pour LinkedIn ou WhatsApp, et la ligne : « Copie-le et envoie-le depuis ta boîte mail. »
 
@@ -109,14 +109,14 @@ Les règles de la relance :
 
 ### 9. Le pipeline, puis la vérification
 
-1. Crée ou mets à jour **la ligne du prospect** dans `pipeline.md` (étape, montant, prochaine action, « Pour le », dernier contact = la date du call, risque, statut `ouvert`). Si le prospect y est déjà (deuxième call), mets sa ligne à jour : n'en ajoute pas une deuxième.
+1. Crée ou mets à jour **la ligne du deal** dans `pipeline.md` (étape, montant, prochaine action, « Pour le », dernier contact = la date du call, risque). **Une ligne par entreprise** : si l'entreprise y est déjà (même avec un autre interlocuteur, par exemple l'associée qui décide), mets sa ligne à jour et garde le contact principal dans « Prospect » ; n'en ajoute pas une deuxième. Statut : `ouvert` pour une nouvelle ligne ; pour une ligne `perdu` ou `gagné`, **ne la rouvre pas** sans le demander à l'utilisateur.
 2. **Vérifie les citations** avec le script, sur chaque fichier des étapes 3 à 7 :
 
 ```
 python3 <dossier du skill>/scripts/verifier_citations.py calls/<fichier> traitements/<dossier>/<chaque fichier>.md
 ```
 
-Une citation introuvable est corrigée (copie la phrase exacte de la transcription) ou retirée, puis tu relances le script. Tu n'envoies ta réponse qu'avec « OK : N citations vérifiées, 0 introuvable ». Si Python n'est pas installé, relis chaque citation à la main contre la transcription et écris « non vérifié par script ».
+Une citation introuvable est corrigée (copie la phrase exacte de la transcription) ou retirée, puis tu relances le script. Tu n'envoies ta réponse qu'avec « OK : N citations vérifiées, 0 introuvable » (le script écrit « ÉCHEC » sinon). Le script vérifie que la phrase existe à cette minute ; c'est à toi de ne mettre en « Preuve » d'un critère de qualification qu'une phrase du **prospect**. Si Python n'est pas installé, relis chaque citation à la main contre la transcription et écris « non vérifié par script ».
 
 ## Ta réponse à l'utilisateur
 
@@ -130,4 +130,4 @@ Une citation introuvable est corrigée (copie la phrase exacte de la transcripti
 
 S'il y a des objections « candidates à la bibliothèque », termine par : « À la fin du mois, je te proposerai de les ajouter à ta bibliothèque. »
 
-Quand l'utilisateur dit qu'un call s'est mal terminé ou qu'un deal est perdu, mets le statut du deal à jour (une ligne), et dis que l'autopsie du mois en tiendra compte.
+Quand l'utilisateur dit **explicitement** qu'un deal est perdu ou gagné, mets le statut à jour (une ligne), et dis que l'autopsie du mois en tiendra compte. Un call qui s'est mal terminé n'est pas un deal perdu : ne change pas le statut de toi-même.

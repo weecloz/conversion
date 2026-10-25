@@ -7,6 +7,8 @@ Prospect, Entreprise, Étape, Montant, Prochaine action, Pour le, Dernier contac
 Dates : aaaa-mm-jj ou jj/mm/aaaa. Statut : ouvert, gagné ou perdu.
 Une date illisible ou une ligne sans prospect est signalée dans « À corriger », jamais une erreur.
 """
+from __future__ import annotations
+
 import argparse
 import re
 import sys
@@ -16,9 +18,12 @@ from datetime import date, datetime
 
 COLS = {
     "prospect": "prospect", "entreprise": "entreprise", "etape": "etape", "montant": "montant",
-    "prochaine action": "action", "pour le": "pour_le", "dernier contact": "dernier_contact",
+    "prochaine action": "action", "prochaine etape": "action", "action": "action",
+    "pour le": "pour_le", "date prochaine action": "pour_le", "echeance": "pour_le",
+    "dernier contact": "dernier_contact", "dernier echange": "dernier_contact",
     "risque": "risque", "statut": "statut",
 }
+OUVERTS_CONNUS = ("ouvert", "en cours")
 FERMES = ("gagne", "perdu")
 
 
@@ -51,13 +56,28 @@ def parse_date(s: str) -> date | None:
 
 
 def _cells(line: str) -> list[str]:
-    return [c.strip() for c in line.strip().strip("|").split("|")]
+    """Cellules d'une ligne de tableau ; un « \\| » est une barre verticale dans le texte d'une cellule."""
+    return [c.replace("\\|", "|").strip() for c in re.split(r"(?<!\\)\|", line.strip().strip("|"))]
+
+
+def _statut(val: str) -> tuple[str, bool]:
+    """(statut normalisé, reconnu ?) : « Perdue », « perdu (prix) » → perdu ; « signé », « gagnée » → gagne."""
+    k = _key(val)
+    if not k:
+        return "ouvert", True
+    mots = k.split()
+    if any(m.startswith("perdu") for m in mots):
+        return "perdu", True
+    if any(m.startswith("gagn") or m.startswith("sign") for m in mots):
+        return "gagne", True
+    return "ouvert", k in OUVERTS_CONNUS
 
 
 def parse(text: str) -> tuple[list[Deal], list[str]]:
-    deals, problems, header = [], [], None
+    deals, problems, header, vu_tableau = [], [], None, False
     for n, raw in enumerate(text.splitlines(), 1):
         if not raw.strip().startswith("|"):
+            header = None  # un nouveau tableau doit avoir sa propre ligne d'en-tête
             continue
         cells = _cells(raw)
         if all(re.fullmatch(r":?-{2,}:?", c) or c == "" for c in cells):
@@ -66,8 +86,14 @@ def parse(text: str) -> tuple[list[Deal], list[str]]:
             keys = [_key(c) for c in cells]
             if "prospect" in keys:
                 header = [COLS.get(k) for k in keys]
+                vu_tableau = True
+                for c, col in zip(cells, header):
+                    if col is None and c:
+                        problems.append(f"ligne {n} : colonne « {c} » non reconnue, ignorée")
             continue
         d = Deal(ligne=n)
+        if len(cells) > len(header):
+            problems.append(f"ligne {n} : plus de cellules que de colonnes (une barre | dans une cellule ? écris \\|)")
         for col, val in zip(header, cells):
             if col is None or not val:
                 continue
@@ -77,14 +103,16 @@ def parse(text: str) -> tuple[list[Deal], list[str]]:
                     problems.append(f"ligne {n} : date « {val} » illisible (écris-la aaaa-mm-jj)")
                 setattr(d, col, dt)
             elif col == "statut":
-                d.statut = _key(val) or "ouvert"
+                d.statut, reconnu = _statut(val)
+                if not reconnu:
+                    problems.append(f"ligne {n} : statut « {val} » non reconnu, lu comme ouvert (écris ouvert, gagné ou perdu)")
             else:
                 setattr(d, col, val)
         if not d.prospect:
             problems.append(f"ligne {n} : pas de prospect, ligne ignorée")
             continue
         deals.append(d)
-    if header is None and text.strip():
+    if not vu_tableau and text.strip():
         problems.append("tableau introuvable : la ligne d'en-tête doit contenir « Prospect »")
     return deals, problems
 
@@ -121,6 +149,15 @@ def perdus_du_mois(deals, mois: str):
     return dans, sans
 
 
+def doublons(deals):
+    """Entreprises qui ont plusieurs lignes ouvertes (une ligne par entreprise : probablement un doublon)."""
+    par = {}
+    for d in ouverts(deals):
+        if d.entreprise:
+            par.setdefault(d.entreprise.strip().casefold(), []).append(d)
+    return [v for v in par.values() if len(v) > 1]
+
+
 def _nom(d: Deal) -> str:
     return f"{d.entreprise} ({d.prospect})" if d.entreprise else d.prospect
 
@@ -136,8 +173,22 @@ def main(argv=None) -> int:
     if today is None:
         print(f"--today : date « {a.today} » illisible (écris-la aaaa-mm-jj)")
         return 2
-    with open(a.fichier, encoding="utf-8-sig") as f:
-        deals, problems = parse(f.read())
+    try:
+        brut = open(a.fichier, "rb").read()
+    except OSError:
+        print(f"Fichier introuvable : {a.fichier}")
+        return 2
+    try:
+        texte = brut.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        texte = brut.decode("cp1252", errors="replace")
+    deals, problems = parse(texte)
+    for d in deals:
+        if d.dernier_contact and d.dernier_contact > today:
+            problems.append(f"ligne {d.ligne} : dernier contact le {d.dernier_contact} est dans le futur")
+    for groupe in doublons(deals):
+        lignes = ", ".join(str(d.ligne) for d in groupe)
+        problems.append(f"doublon possible : {groupe[0].entreprise} a {len(groupe)} lignes ouvertes (lignes {lignes}) : une seule ligne par entreprise")
     print(f"Deals qui dorment ({a.days} jours ou plus) : {len(dormants(deals, today, a.days))}")
     for d, age in dormants(deals, today, a.days):
         quand = f"{age} jours sans nouvelle" if age is not None else "date du dernier contact inconnue"

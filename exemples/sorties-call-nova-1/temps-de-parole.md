@@ -6,7 +6,8 @@ Temps de parole (en mots) :
   Marc Lefort : 33 % (171 mots)
 Plus long monologue du commercial : 72 mots, à partir de [01:15], environ 0.6 min
 « ? » dans les répliques du commercial : 4
-Coupures probables : aucune
+Coupures probables, à vérifier (réplique du prospect qui finit par « … », puis le commercial enchaîne) :
+  aucune
 ```
 
 Tu as parlé 67 % du temps, au-dessus des 60 % : Marc n'a eu qu'un tiers du call, et c'est lui qui t'apprend ce qui fait signer.

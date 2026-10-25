@@ -9,37 +9,67 @@ par interlocuteur, le plus long monologue du commercial, le nombre de « ? » da
 et les coupures probables. Les noms sont comparés sans tenir compte des majuscules ni des accents
 décomposés.
 """
+from __future__ import annotations
+
 import re
 import sys
 import unicodedata
 
-TIMED = re.compile(r"^\[(\d{1,3}):(\d{2})(?::(\d{2}))?\]\s*([^:\[\]]+?)\s*:\s*(.*)$")
+TIMED = re.compile(r"^\[?(\d{1,3}):(\d{2})(?::(\d{2}))?\]?\s*([^:\[\]]+?)\s*:\s*(.*)$")
 UNTIMED = re.compile(r"^([^\s:\[\]][^:\[\]]{0,60}?)\s*:\s+(.+)$")
-HEADER = re.compile(r"^(call with|participants|appel avec|participants)\b", re.I)
+HEADER = re.compile(r"^(call with|participants|appel avec|titre|title|date|dur[ée]e|duration|r[ée]union|meeting|sujet|subject)\b", re.I)
 
 
 def key(name):
     return unicodedata.normalize("NFC", name).strip().casefold()
 
 
+def _participants(text):
+    """Noms de la ligne « Participants: You, Marc Lefort (Nova) » (sans les parenthèses), ou un ensemble vide."""
+    for raw in text.splitlines():
+        m = re.match(r"^\s*participants?\s*:\s*(.+)$", unicodedata.normalize("NFC", raw), re.I)
+        if m:
+            return {key(re.sub(r"\(.*?\)", "", p)) for p in m.group(1).split(",") if p.strip()}
+    return set()
+
+
+def _est_un_participant(label, connus):
+    k = key(label)
+    return any(k == c or k in c or c in k for c in connus)
+
+
 def parse(text):
-    """Renvoie (répliques, avec_heures). Une réplique = (t, secondes, nom, texte)."""
+    """Renvoie (répliques, avec_heures). Une réplique = (t, secondes, nom, texte).
+    Une ligne qui n'est pas une nouvelle réplique est ajoutée à la précédente (réplique sur plusieurs lignes) ;
+    une ligne vide termine la réplique."""
+    connus = _participants(text)
     timed, untimed = [], []
+    cible, suite = None, False
     for raw in text.splitlines():
         line = unicodedata.normalize("NFC", raw).strip()
+        if not line:
+            suite = False
+            continue
         m = TIMED.match(line)
         if m:
             a, b, c, who, body = m.groups()
             secs = int(a) * 60 + int(b) if c is None else int(a) * 3600 + int(b) * 60 + int(c)
             t = f"{a}:{b}" if c is None else f"{a}:{b}:{c}"
-            timed.append((t, secs, who.strip(), body.strip()))
+            timed.append([t, secs, who.strip(), body.strip()])
+            cible, suite = timed[-1], True
             continue
         m = UNTIMED.match(line)
-        if m and not HEADER.match(line):
-            untimed.append((None, None, m.group(1).strip(), m.group(2).strip()))
-    if timed:
-        return timed, True
-    return untimed, False
+        if m and not HEADER.match(line) and (not connus or _est_un_participant(m.group(1), connus)):
+            untimed.append([None, None, m.group(1).strip(), m.group(2).strip()])
+            cible, suite = untimed[-1], True
+            continue
+        if HEADER.match(line):
+            suite = False
+            continue
+        if suite and cible is not None:
+            cible[3] = (cible[3] + " " + line).strip()
+    rows = timed if timed else untimed
+    return [tuple(r) for r in rows], bool(timed)
 
 
 def main(path, aliases):

@@ -7,7 +7,7 @@ Bonjour Marc,
 
 Tu m'as dit que vous perdez environ six heures par semaine à courir après les pièces de vos clients. Pour savoir si ça vaut deux cent quatre-vingt-dix euros par mois, on peut le chiffrer ensemble avec tes chiffres : dix minutes suffisent.
 
-Julie gère les outils et les abonnements : je lui montre en vingt minutes comment un client dépose ses pièces depuis son téléphone. Jeudi 22 octobre à 17 h, ça vous irait ?
+Julie gère les outils et les abonnements : je lui montre en vingt minutes comment un client dépose ses pièces depuis son téléphone. Jeudi 22 octobre à 17 h, ça te va ?
 
 Alex
 ```

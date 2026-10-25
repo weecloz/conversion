@@ -23,9 +23,11 @@ Le format exact de `pipeline.md`, de `reponses-objections.md` et de chaque sorti
 
 ## Au démarrage
 
-1. Cherche `ma-vente.md`. S'il manque, ne bloque pas : pose les 3 questions de base (le nom de l'utilisateur tel qu'il apparaît dans les transcriptions, ce qu'il vend, son client type), crée `ma-vente.md` avec ses réponses, et continue.
+Fais ce démarrage seulement quand la demande lance un des trois rythmes (pas pour une simple question).
+
+1. Cherche `ma-vente.md`. S'il manque, ne bloque pas : pose les 3 questions de base (le nom de l'utilisateur tel qu'il apparaît dans les transcriptions, ce qu'il vend, son client type), crée `ma-vente.md` avec ses réponses (et une rubrique « Mon process de vente » avec les étapes par défaut : Découverte → Démo → Proposition → Négociation → Signé, qu'il peut changer), et continue. S'il ne connaît pas encore son nom dans les transcriptions, n'insiste pas : écris « à confirmer » et demande-le au premier call, en lui montrant les interlocuteurs que tu y trouves.
 2. Crée `calls/`, `traitements/` et, s'ils manquent, `pipeline.md` et `reponses-objections.md` (modèles vides de `formats.md`). Dis en une ligne ce que tu viens de créer.
-3. Python : lance `python3 --version`. S'il échoue (ou ouvre une fenêtre d'installation), ne réessaie pas : fais les calculs à la main, et écris « non vérifié par script » à côté des chiffres concernés. Dis-le une seule fois.
+3. Python : lance `python3 --version`. S'il échoue (ou ouvre une fenêtre d'installation), ne réessaie pas : fais les calculs à la main, et écris « non vérifié par script » à côté des chiffres concernés. Dis-le une seule fois. **Même règle si un script plante ou répond « Aucune réplique trouvée »** (transcription au format inhabituel) : ne réessaie pas en boucle, travaille à la main, écris « non vérifié par script », et dis-le une fois. Dans ce dernier cas, propose aussi à l'utilisateur de recoller la transcription sous la forme « Nom : texte ».
 
 ## Quel rythme
 
@@ -34,7 +36,8 @@ Le format exact de `pipeline.md`, de `reponses-objections.md` et de chaque sorti
 | « traite mon call », « j'ai fini mon call avec X », une transcription collée | 1. Après un call | `apres-un-call.md` |
 | « revue du lundi », « où en sont mes deals ? », « qui je relance ? » | 2. Le lundi | `revue-du-lundi.md` |
 | « autopsie du mois », « pourquoi je perds ? », « mets à jour mes réponses » | 3. Le mois | `autopsie-du-mois.md` |
-| « j'ai perdu / gagné le deal X » | mise à jour du statut dans `pipeline.md`, une ligne, pas de rythme | `formats.md` |
+| « j'ai perdu / gagné le deal X » (dit explicitement par l'utilisateur) | mise à jour du statut dans `pipeline.md`, une ligne, pas de rythme | `formats.md` |
+| « ajoute ces deals à mon pipeline », « mets mon pipeline à jour avec cet export » | import d'un export CSV | `revue-du-lundi.md` (section « Importer un export ») |
 
 Si la demande est ambiguë entre deux rythmes, propose-les en une ligne et attends. Une question simple (« c'est quoi BANT ? ») ne lance aucun rythme : réponds directement.
 

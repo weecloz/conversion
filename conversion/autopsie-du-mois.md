@@ -25,7 +25,7 @@ Sans transcription pour un deal, travaille sur la colonne « Risque » de `pipel
 
 ### 3. Peu de deals
 
-Moins de 3 deals perdus : fais l'analyse quand même, et dis qu'on ne peut pas encore parler de tendance. Aucun deal perdu : dis-le, félicite sobrement, et propose plutôt de relire la bibliothèque.
+Moins de 3 deals perdus : fais l'analyse quand même, et dis qu'on ne peut pas encore parler de tendance. Aucun deal perdu : dis-le, et propose plutôt de relire la bibliothèque.
 
 ### 4. Regroupe
 
@@ -71,9 +71,10 @@ Termine par : « J'ajoute tout à ta bibliothèque ? Réponds "oui", "oui sauf 2
 ### 8. Exécute la réponse
 
 - **« oui »** : écris toutes les propositions.
-- **« oui sauf 2 »** : écris toutes les propositions sauf la 2, qui ne bouge pas.
+- **« oui sauf 2 »** (ou « oui sauf 2 et 3 ») : écris toutes les propositions sauf celles qui sont citées, qui ne bougent pas.
+- **Une réponse floue** (« peut-être », « je vois ») : ne touche à rien et redemande « oui », « oui sauf … » ou « non ».
 - **« non »** (ou toute réponse qui refuse tout) : ne touche à rien. `reponses-objections.md` reste **identique au caractère près**, et tu le dis.
 
-Pour chaque proposition validée : la date du jour dans « Ajoutée le » (ajout) ou « Dernière mise à jour » (modification), et « Vue : N fois » avec les deals de l'autopsie. Rends compte ligne par ligne (« ajoutée : "C'est trop cher" », « modifiée : … », « pas touchée : la 2 »).
+Pour chaque proposition validée : la date du jour dans « Ajoutée le » (ajout) ou « Dernière mise à jour » (modification), et « Vue : N fois » : ajoute au compte existant les calls de l'autopsie où l'objection a été entendue et qui n'étaient pas déjà listés. Rends compte ligne par ligne (« ajoutée : "C'est trop cher" », « modifiée : … », « pas touchée : la 2 »).
 
 Termine en rappelant que ces réponses seront reprises au prochain call : au rythme 1 (étape 5), chaque objection est comparée à la bibliothèque.

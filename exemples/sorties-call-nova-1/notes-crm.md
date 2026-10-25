@@ -3,7 +3,7 @@
 - **Étape** : Découverte
 - **Montant** : 290 € par mois, mise en place incluse
 - **Décideur** : Julie (associée, gère les outils et abonnements) ; Marc est l'interlocuteur
-- **Prochaine action** : démo de vingt minutes avec Julie, proposée pour le 2026-10-22 à 17 h
+- **Prochaine action** : à fixer (proposée dans la relance : démo de vingt minutes avec Julie, le 2026-10-22 à 17 h)
 - **Risques** :
   - [03:03] « C'est un peu cher pour nous, honnêtement » : le prix est déjà une objection.
   - [04:08] « on verra après la saison fiscale » : risque de report.

@@ -31,7 +31,7 @@ Le skill travaille sur **ce que tes prospects disent vraiment pendant tes appels
 
 Le plus simple : l'extension Chrome **[Weecloz](https://www.weecloz.io/)**. Elle enregistre tes calls sur Google Meet, Zoom et Teams, sans bot dans ta réunion. Après le call : onglet Transcript → Copier le transcript, et tu le colles dans la conversation.
 
-> N'importe quelle transcription marche aussi, du moment qu'elle contient les noms des interlocuteurs. Pense à prévenir ton prospect que tu enregistres.
+> N'importe quelle transcription marche aussi, du moment qu'elle contient les noms des interlocuteurs (« [mm:ss] Nom : texte » ou « Nom : texte »). Si le format est inhabituel, le skill travaille dessus, mais sans la vérification par script. Pense à prévenir ton prospect que tu enregistres.
 
 ## Installation
 
@@ -90,7 +90,7 @@ Avec `ma-vente.md` (ton offre, tes preuves, ton style), et un dossier `traitemen
 
 ## Les règles
 
-- **Rien n'est inventé.** Chaque citation est vérifiée contre ta transcription par un script avant que tu la voies. Une info incertaine est marquée « à vérifier ».
+- **Rien n'est inventé.** Chaque citation est vérifiée contre ta transcription par un script (quand Python est installé, ce qui est le cas sur un Mac) avant que tu la voies ; sinon, le skill écrit « non vérifié par script ». Une info incertaine est marquée « à vérifier ».
 - **Rien n'est envoyé à ta place.** Le skill rédige, tu envoies.
 - **Rien n'est écrit dans un CRM sans ton « oui ».**
 - **Ta bibliothèque ne change qu'avec ton accord.** Un « non » la laisse identique.
@@ -112,8 +112,11 @@ Si Python n'est pas installé sur ton ordinateur, le skill le dit une fois et fa
 ## Les tests
 
 ```bash
+pip install pytest pyyaml
 cd outils && python3 -m pytest -q
 ```
+
+(Les scripts du skill n'ont besoin d'aucune installation ; `pytest` et `pyyaml` ne servent qu'aux tests.)
 
 Les tests couvrent les scripts, la structure du skill et les exemples : [`exemples/`](exemples/) contient un call fictif, ses sept sorties et un pipeline d'exemple. Les citations de ces exemples sont vérifiées à chaque lancement.
 

@@ -20,7 +20,8 @@ Les règles :
 - **Dates** : `aaaa-mm-jj` (`jj/mm/aaaa` est aussi lu). Une date illisible est signalée à l'utilisateur, jamais devinée.
 - **Statut** : `ouvert`, `gagné` ou `perdu`. La date d'un deal perdu est son « Dernier contact ».
 - **Étape** : les noms exacts de la rubrique « Mon process de vente » de `ma-vente.md`.
-- **Une ligne par deal.** Si le prospect existe déjà (même nom et même entreprise), tu **mets à jour** sa ligne : tu n'en ajoutes pas une deuxième. Deux personnes du même nom dans des entreprises différentes sont deux lignes.
+- **Une ligne par entreprise.** Si l'entreprise existe déjà (même avec un autre interlocuteur), tu **mets à jour** sa ligne : tu n'en ajoutes pas une deuxième. Le contact principal reste dans « Prospect ». Deux deals vraiment distincts dans la même entreprise : demande à l'utilisateur avant d'ajouter une ligne.
+- **Statut** : écris exactement `ouvert`, `gagné` ou `perdu` (le script lit aussi « perdue », « signé », « en cours », mais n'écris pas autre chose).
 - **Prochaine action et « Pour le »** : toujours remplies pour un deal ouvert. Un deal sans prochaine étape datée est un deal qui meurt : si le call n'en a pas fixé, écris « à fixer » dans « Prochaine action », laisse « Pour le » vide, et dis-le.
 - Tu relis ce tableau avec : `python3 <dossier du skill>/scripts/pipeline.py pipeline.md --today aaaa-mm-jj`.
 
@@ -37,6 +38,8 @@ Un bloc par objection, de cette forme exacte :
 - **Dernière mise à jour** : 2026-10-26
 - **Vue** : 3 fois (Nova 2026-10-20, Morel 2026-10-12, Weber 2026-10-08)
 ```
+
+« Vue » = le nombre de calls traités où l'objection a été entendue, avec leurs dates.
 
 Le fichier vide ne contient que son titre `# Mes réponses aux objections` et une phrase d'explication. Seul le « oui » de l'utilisateur ajoute ou modifie un bloc.
 

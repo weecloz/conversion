@@ -110,3 +110,89 @@ def test_cli_date_du_jour_illisible(tmp_path, capsys):
     f.write_text(TABLE, encoding="utf-8")
     assert p.main([str(f), "--today", "demain"]) == 2
     assert "illisible" in capsys.readouterr().out
+
+
+# ---- Relecture finale : cas trouvés par le relecteur ----
+
+def test_statuts_ecrits_a_la_main_sont_reconnus():
+    t = """| Prospect | Entreprise | Statut |
+|---|---|---|
+| A | Aa | Perdue |
+| B | Bb | perdu (prix) |
+| C | Cc | signé |
+| D | Dd | En cours |
+| E | Ee | bizarre |
+"""
+    deals, problemes = p.parse(t)
+    assert [d.statut for d in deals] == ["perdu", "perdu", "gagne", "ouvert", "ouvert"]
+    assert any("bizarre" in x for x in problemes)
+    assert not any("En cours" in x for x in problemes)
+
+
+def test_second_tableau_ne_cree_pas_de_deals_fantomes():
+    t = TABLE + "\n## Archive\n\n| Prospect | Entreprise | Statut |\n|---|---|---|\n| Zed | Zeta | gagné |\n\n| Foo | Bar |\n|---|---|\n| a | b |\n"
+    deals, _ = p.parse(t)
+    noms = [d.prospect for d in deals]
+    assert "Prospect" not in noms and "Foo" not in noms and "a" not in noms
+    assert noms[-1] == "Zed" and deals[-1].statut == "gagne"
+
+
+def test_barre_verticale_echappee_dans_une_cellule():
+    t = "| Prospect | Entreprise | Prochaine action | Pour le | Statut |\n|---|---|---|---|---|\n| Marc | Nova | Envoyer devis A \\| B | 2026-10-28 | ouvert |\n"
+    deals, problemes = p.parse(t)
+    assert deals[0].action == "Envoyer devis A | B"
+    assert deals[0].pour_le == date(2026, 10, 28) and deals[0].statut == "ouvert" and problemes == []
+
+
+def test_colonne_inconnue_signalee_et_alias_reconnus():
+    t = "| Prospect | Truc | Prochaine étape | Échéance |\n|---|---|---|---|\n| Marc | x | Démo | 2026-10-28 |\n"
+    deals, problemes = p.parse(t)
+    assert deals[0].action == "Démo" and deals[0].pour_le == date(2026, 10, 28)
+    assert any("Truc" in x for x in problemes) and not any("Échéance" in x or "Prochaine" in x for x in problemes)
+
+
+def test_cellules_en_trop_signalees():
+    t = "| Prospect | Entreprise |\n|---|---|\n| Marc | Nova | oups |\n"
+    deals, problemes = p.parse(t)
+    assert deals[0].prospect == "Marc" and any("plus de cellules" in x for x in problemes)
+
+
+def test_dernier_contact_dans_le_futur_signale(tmp_path, capsys):
+    f = tmp_path / "pipeline.md"
+    f.write_text(TABLE.replace("2026-10-22", "2026-12-30"), encoding="utf-8")
+    p.main([str(f), "--today", "2026-10-26"])
+    assert "dans le futur" in capsys.readouterr().out
+
+
+def test_doublons_signales(tmp_path, capsys):
+    f = tmp_path / "pipeline.md"
+    f.write_text(TABLE + "| Julie Roux | nova | Démo | | à fixer | | 2026-10-25 | | ouvert |\n", encoding="utf-8")
+    p.main([str(f), "--today", "2026-10-26"])
+    out = capsys.readouterr().out
+    assert "doublon" in out.lower() and "Nova" in out
+
+
+def test_fichier_absent_message_clair(tmp_path, capsys):
+    assert p.main([str(tmp_path / "absent.md")]) == 2
+    assert "introuvable" in capsys.readouterr().out
+
+
+def test_fichier_windows_1252_lisible(tmp_path, capsys):
+    f = tmp_path / "pipeline.md"
+    f.write_bytes(TABLE.replace("Démo", "Démo").encode("cp1252"))
+    assert p.main([str(f), "--today", "2026-10-26"]) == 0
+    assert "Claire Morel" in capsys.readouterr().out
+
+
+def test_les_scripts_marchent_avec_le_python_3_9_du_mac():
+    import os
+    import subprocess
+    py = "/usr/bin/python3"
+    if not os.path.exists(py):
+        return
+    scripts = Path(__file__).resolve().parent.parent / "conversion" / "scripts"
+    exemples = Path(__file__).resolve().parent.parent / "exemples"
+    r = subprocess.run([py, "-B", str(scripts / "pipeline.py"), str(exemples / "pipeline.md"), "--today", "2026-10-26"], capture_output=True, text=True)
+    assert r.returncode == 0, r.stderr
+    r = subprocess.run([py, "-B", str(scripts / "verifier_citations.py"), str(exemples / "call-nova-1.txt"), str(exemples / "sorties-call-nova-1" / "resume.md")], capture_output=True, text=True)
+    assert r.returncode == 0, r.stderr

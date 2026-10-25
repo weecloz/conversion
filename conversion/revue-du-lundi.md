@@ -33,7 +33,7 @@ Dans `traitements/revue-<aaaa-mm-jj>.md`, et en résumé dans la conversation :
 
 ## Ce qui a bougé
 - [prospect] : [ce qui a changé depuis la dernière revue : nouvelle étape, nouveau contact]
-(« Première revue : rien à comparer » s'il n'y en a pas eu de précédente.)
+(Source : relis le dernier `traitements/revue-*.md` ; les deals dont le « Dernier contact » est postérieur à sa date, ou qui n'y figuraient pas, ont bougé. Sans revue précédente : « Première revue : rien à comparer. » N'invente jamais un mouvement qui n'est pas dans ces deux sources.)
 
 ## Les deals qui dorment (7 jours ou plus)
 - [entreprise] ([prospect]), étape [étape], [N] jours sans nouvelle : [la première chose à faire]
@@ -61,5 +61,15 @@ Dans le même fichier, une relance courte par deal qui dort, avec les mêmes rè
 - Les jours sans nouvelle viennent du script. Si Python n'est pas installé, calcule à la main et écris « non vérifié par script ».
 - Un deal sans date de dernier contact est signalé comme « date inconnue » : demande-la, ne la devine pas.
 - **Une action en retard n'est pas une action « qui n'a pas eu lieu ».** `pipeline.md` dit seulement ce qui était prévu et quand : le deal a pu avancer sans que le fichier soit mis à jour. Écris « prévue le [date], pas mise à jour dans ton pipeline », demande à l'utilisateur ce qui s'est passé, et n'affirme jamais dans une relance qu'un rendez-vous ou un envoi n'a pas eu lieu.
-- Dans les relances et les phrases à dire, n'écris jamais « caler » (« on se cale »), « je me permets », « n'hésitez pas » : dis « fixer », « planifier ».
+- Les relances suivent la liste des mots interdits de `SKILL.md`.
 - Tu ne passes jamais un deal en `perdu` ou `gagné` de toi-même : demande-le.
+
+## Importer un export (« ajoute ces deals à mon pipeline », « mets mon pipeline à jour avec cet export »)
+
+Pour démarrer avec les deals d'un CRM, ou resynchroniser `pipeline.md` après des changements faits dans le CRM :
+1. Enregistre l'export CSV à la racine du dossier de travail, et lis-le.
+2. Compare avec `pipeline.md` **par entreprise** (une ligne par entreprise) : deals nouveaux, deals dont l'étape ou le montant a changé, deals gagnés ou perdus dans le CRM.
+3. Montre la liste des changements (« j'ajoute 12 deals, je passe Nova en Négociation, je marque Weber SAS gagné ») et **attends le « oui »** avant d'écrire quoi que ce soit.
+4. Après le « oui », écris. Un deal importé sans prochaine action prend « à fixer » : il apparaîtra « sans prochaine étape datée » tant que l'utilisateur ne l'a pas renseigné, et c'est voulu.
+5. Les deals perdus avant l'installation n'ont pas de transcription : l'autopsie les compte, avec une analyse plus faible.
+
