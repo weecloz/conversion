@@ -14,7 +14,7 @@ python3 <dossier du skill>/scripts/pipeline.py pipeline.md --today <la date d'au
 
 Le script donne : les deals qui dorment (7 jours ou plus), ceux **sans prochaine étape datée**, ceux **en retard** sur leur prochaine étape, et ce qui est à corriger dans le fichier.
 
-Si l'utilisateur colle un export CSV de son CRM, enregistre-le à la racine du dossier de travail et croise-le : un deal du CSV absent de `pipeline.md` est listé « absent de ton pipeline » (tu ne l'ajoutes qu'avec son accord). Le CSV ne remplace jamais `pipeline.md`.
+Si l'utilisateur colle un export CSV de son CRM, enregistre-le à la racine du dossier de travail et croise-le : un deal du CSV absent de `pipeline.md` est listé « absent de ton pipeline » (tu ne l'ajoutes qu'avec son accord). Le CSV ne remplace jamais `pipeline.md`. Si l'utilisateur a un CRM (voir « Mon process de vente » de `ma-vente.md`) et n'a pas collé d'export, demande en une ligne : « As-tu modifié des deals dans ton CRM depuis la dernière revue ? Si oui, glisse un export et je mets ton pipeline à jour avant la revue. »
 
 ### 2. Ce qui est à corriger passe en premier
 
