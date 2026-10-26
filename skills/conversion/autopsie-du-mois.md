@@ -6,6 +6,10 @@ Un deal perdu isolé est une anecdote. Trois deals perdus pour la même raison, 
 
 ### 1. Les deals perdus du mois
 
+**Si un CRM est connecté** (voir `SKILL.md`) : lis dans le CRM les deals passés à « perdu » pendant le mois, avec leur date de perte et leur motif de perte s'il existe. Écris-les dans `pipeline.md` (statut `perdu`, « Dernier contact » = la date de perte, « Risque » = le motif), puis lance le script ci-dessous. Tu n'as pas besoin que l'utilisateur te dise qu'un deal est perdu : le CRM le sait. Lis aussi, pour chaque deal perdu, ses transcriptions dans `calls/` quand il y en a.
+
+**Sans CRM connecté (mode fichier) :**
+
 Lance :
 
 ```

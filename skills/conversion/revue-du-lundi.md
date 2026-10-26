@@ -6,6 +6,10 @@ En 5 minutes, l'utilisateur sait où en est son pipeline, quels deals sont en tr
 
 ### 1. Lis le pipeline
 
+**Si un CRM est connecté** (voir `SKILL.md`) : lis dans le CRM les deals ouverts (étape, montant, dernier contact, prochaine action et sa date, risque), réécris `pipeline.md` à partir de ce que tu as lu (copie de travail, une ligne par entreprise, même format que dans `formats.md`), puis lance le script ci-dessous. Ne demande aucun export à l'utilisateur et n'écris rien dans le CRM pendant la revue. Si le CRM contient trop de deals pour tout lire (plus de 200), lis les deals ouverts dont le dernier contact est le plus ancien et dis que tu t'es limité.
+
+**Sans CRM connecté (mode fichier) :**
+
 Lance :
 
 ```
@@ -64,7 +68,9 @@ Dans le même fichier, une relance courte par deal qui dort, avec les mêmes rè
 - Les relances suivent la liste des mots interdits de `SKILL.md`.
 - Tu ne passes jamais un deal en `perdu` ou `gagné` de toi-même : demande-le.
 
-## Importer un export (« ajoute ces deals à mon pipeline », « mets mon pipeline à jour avec cet export »)
+## Importer un export (mode fichier seulement : « ajoute ces deals à mon pipeline », « mets mon pipeline à jour avec cet export »)
+
+Avec un CRM connecté, n'importe rien : lis le CRM.
 
 Pour démarrer avec les deals d'un CRM, ou resynchroniser `pipeline.md` après des changements faits dans le CRM :
 1. Enregistre l'export CSV à la racine du dossier de travail, et lis-le.

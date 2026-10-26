@@ -15,7 +15,7 @@ Les fichiers à côté de celui-ci, dans le dossier de ce skill : `apres-un-call
 |---|---|
 | `ma-vente.md` | son offre, ses preuves, son style, les noms exacts de son pipeline |
 | `calls/` | une transcription par call : `aaaa-mm-jj-prospect.txt` |
-| `pipeline.md` | une ligne par deal ; tu le mets à jour à chaque call traité |
+| `pipeline.md` | une ligne par deal. **Sans CRM connecté**, c'est le suivi du skill : tu le mets à jour à chaque call traité. **Avec un CRM connecté**, c'est une copie de travail, relue depuis le CRM |
 | `reponses-objections.md` | sa bibliothèque de réponses ; tu ne la modifies qu'après son « oui » |
 | `traitements/` | un dossier daté par call traité, avec les sorties |
 
@@ -29,6 +29,17 @@ Fais ce démarrage seulement quand la demande lance un des trois rythmes (pas po
 2. Crée `calls/`, `traitements/` et, s'ils manquent, `pipeline.md` et `reponses-objections.md` (modèles vides de `formats.md`). Dis en une ligne ce que tu viens de créer.
 3. Python : lance `python3 --version`. S'il échoue (ou ouvre une fenêtre d'installation), ne réessaie pas : fais les calculs à la main, et écris « non vérifié par script » à côté des chiffres concernés. Dis-le une seule fois. **Même règle si un script plante ou répond « Aucune réplique trouvée »** (transcription au format inhabituel) : ne réessaie pas en boucle, travaille à la main, écris « non vérifié par script », et dis-le une fois. Dans ce dernier cas, propose aussi à l'utilisateur de recoller la transcription sous la forme « Nom : texte ».
 
+## Si un CRM est connecté à Claude
+
+Regarde dans tes outils s'il y a un connecteur de CRM (HubSpot, Pipedrive, Salesforce, folk, Attio, Zoho, Airtable, Notion…). S'il y en a un, dis-le en une ligne (« Je vois ton CRM [nom] connecté : il devient la référence pour tes deals. ») et écris « CRM connecté : oui, [nom] » dans `ma-vente.md`. Si l'utilisateur ne veut pas que tu t'en serves, écris « non » et reste en **mode fichier** (sans connecteur, c'est aussi le mode par défaut).
+
+En **mode CRM** :
+- **Le CRM est la référence.** Tu y **lis** sans demander : les deals ouverts, leur étape, leur montant, leur dernier contact, leur prochaine action, les deals perdus du mois et leur motif.
+- **Tu n'y écris qu'après le « oui » de l'utilisateur**, champ par champ (ancienne valeur → nouvelle valeur), une action à la fois, et tu rends compte ligne par ligne. Tu ne supprimes jamais rien. Tu ne crées un deal que s'il le demande explicitement.
+- **`pipeline.md` n'est plus tenu à la main** : avant une revue du lundi ou une autopsie, tu le réécris depuis le CRM (même format que dans `formats.md`, une ligne par entreprise) pour que le script calcule les dates. C'est une copie : si les deux diffèrent, le CRM a raison.
+- Les étapes sont celles du CRM, avec leurs noms exacts.
+- **Si le CRM ne répond pas** (erreur, droits manquants), dis-le une fois et travaille en mode fichier pour cette demande.
+
 ## Quel rythme
 
 | La demande ressemble à… | Rythme | Fichier à lire |
@@ -37,7 +48,7 @@ Fais ce démarrage seulement quand la demande lance un des trois rythmes (pas po
 | « revue du lundi », « où en sont mes deals ? », « qui je relance ? » | 2. Le lundi | `revue-du-lundi.md` |
 | « autopsie du mois », « pourquoi je perds ? », « mets à jour mes réponses » | 3. Le mois | `autopsie-du-mois.md` |
 | « j'ai perdu / gagné le deal X » (dit explicitement par l'utilisateur) | mise à jour du statut dans `pipeline.md`, une ligne, pas de rythme | `formats.md` |
-| « ajoute ces deals à mon pipeline », « mets mon pipeline à jour avec cet export » | import d'un export CSV | `revue-du-lundi.md` (section « Importer un export ») |
+| « ajoute ces deals à mon pipeline », « mets mon pipeline à jour avec cet export » (mode fichier seulement : avec un CRM connecté, tu lis le CRM) | import d'un export CSV | `revue-du-lundi.md` (section « Importer un export ») |
 
 Si la demande est ambiguë entre deux rythmes, propose-les en une ligne et attends. Une question simple (« c'est quoi BANT ? ») ne lance aucun rythme : réponds directement.
 

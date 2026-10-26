@@ -78,7 +78,7 @@ flowchart LR
 
 ## La mémoire
 
-Le skill garde trois choses dans ton dossier de travail. Tu peux les ouvrir et les corriger à la main.
+Le skill garde trois choses dans ton dossier de travail. Tu peux les ouvrir et les corriger à la main. **Si ton CRM est connecté à Claude** (HubSpot, Pipedrive, Salesforce…), il devient la référence : le skill y lit tes deals, te propose les mises à jour après chaque call et ne les écrit qu'avec ton « oui » ; `pipeline.md` n'est alors qu'une copie de travail.
 
 | Fichier | Contenu |
 |---|---|

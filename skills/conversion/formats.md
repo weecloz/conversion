@@ -4,7 +4,7 @@ Tu écris les fichiers de l'utilisateur toujours dans ces formats : le script `p
 
 ## `pipeline.md`
 
-Un tableau Markdown. Les colonnes sont reconnues par leur nom (accents et majuscules ignorés), dans n'importe quel ordre.
+**Sans CRM connecté**, c'est le suivi du skill. **Avec un CRM connecté**, c'est une copie de travail que tu réécris depuis le CRM avant une revue ou une autopsie (le CRM fait foi). Dans les deux cas, c'est un tableau Markdown. Les colonnes sont reconnues par leur nom (accents et majuscules ignorés), dans n'importe quel ordre.
 
 ```markdown
 # Pipeline

@@ -62,3 +62,12 @@ def test_chaine_privee_refusee(tmp_path):
 
 def test_le_vrai_skill_est_conforme():
     assert v.check(RACINE / "conversion") == []
+
+
+def test_les_trois_rythmes_prevoient_le_mode_crm_connecte():
+    for f in ("apres-un-call.md", "revue-du-lundi.md", "autopsie-du-mois.md"):
+        t = (RACINE / "conversion" / f).read_text(encoding="utf-8")
+        assert "Si un CRM est connecté" in t, f
+        assert "Sans CRM connecté" in t, f
+    skill = (RACINE / "conversion" / "SKILL.md").read_text(encoding="utf-8")
+    assert "Le CRM est la référence" in skill and "Tu n'y écris qu'après le « oui »" in skill

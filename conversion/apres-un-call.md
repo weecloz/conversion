@@ -107,7 +107,17 @@ Les règles de la relance :
 
 **`notes-crm.md`** : étape (les noms exacts de la rubrique « Mon process de vente » de `ma-vente.md`), montant (avec ce qu'il comprend), décideur et personnes impliquées, prochaine action avec sa date, risques (avec une citation), résumé en 3 lignes. Un champ non abordé s'écrit « non abordé ». **Rien n'est écrit dans un CRM** : si un connecteur CRM est branché, propose la mise à jour champ par champ (ancienne valeur → nouvelle) et attends le « oui » de l'utilisateur ; sinon, dis en une ligne que le bloc est prêt à coller.
 
-### 9. Le pipeline, puis la vérification
+### 9. Le pipeline (et le CRM s'il est connecté), puis la vérification
+
+**Si un CRM est connecté** (voir `SKILL.md`), fais ceci à la place du point 1 ci-dessous :
+1. **Retrouve le deal dans le CRM** : par entreprise, puis par contact. S'il y en a plusieurs possibles, demande lequel. S'il n'y en a aucun, propose de le créer (c'est à l'utilisateur de dire oui).
+2. **Prépare les mises à jour** en comparant le CRM à ce que dit le call : étape, montant, prochaine action et sa date, décideur, risque, et une note (le résumé en 3 lignes + les risques, avec leurs citations). Ne propose que ce qui change.
+3. **Montre le tableau et demande** : « Je fais tout dans [CRM] ? Réponds "oui", "oui sauf 2" ou "non". » **Attends.** Aucune écriture avant la réponse.
+4. **Après le « oui »**, écris dans le CRM une action à la fois, avec l'outil du connecteur, et rends compte ligne par ligne (« faite » ou « pas faite, et pourquoi »). Sur « non », n'écris rien.
+5. Réécris ensuite la ligne du deal dans `pipeline.md` (la copie de travail) avec ce que dit maintenant le CRM, puis passe au point 2.
+Dans ta réponse, dis « CRM : en attente de ton oui » tant qu'il n'a pas répondu.
+
+**Sans CRM connecté (mode fichier) :**
 
 1. Crée ou mets à jour **la ligne du deal** dans `pipeline.md` (étape, montant, prochaine action, « Pour le », dernier contact = la date du call, risque). **Une ligne par entreprise** : si l'entreprise y est déjà (même avec un autre interlocuteur, par exemple l'associée qui décide), mets sa ligne à jour et garde le contact principal dans « Prospect » ; n'en ajoute pas une deuxième. Statut : `ouvert` pour une nouvelle ligne ; pour une ligne `perdu` ou `gagné`, **ne la rouvre pas** sans le demander à l'utilisateur.
 2. **Vérifie les citations** avec le script, sur chaque fichier des étapes 3 à 7 :
